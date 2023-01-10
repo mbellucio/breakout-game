@@ -81,7 +81,6 @@ class GameLogic:
         while self.staging_area:
             self.screen.refresh_screen()
             self.ball_staging_area()
-        self.up_start = None
         while self.game_on:
             self.screen.refresh_screen()
             self.ball_hit_target()
