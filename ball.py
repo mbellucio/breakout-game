@@ -5,44 +5,54 @@ class Ball(Turtle):
 
     def __init__(self):
         super().__init__()
-        self.start = False
         self.penup()
         self.shape('circle')
         self.color('white')
-        self.x_move = 7
-        self.y_move = 7
+        self.default_speed = 3.5
+        self.speed = 3.5
+        self.x_move = 3.5
+        self.y_move = 3.5
+        self.speed_color = {
+            'purple': 1.8,
+            'red': 1.5,
+            'green': 1.25, 
+            'white': 1
+        }
 
     def move_ball(self):
-        new_x = self.xcor() + self.x_move
-        new_y = self.ycor() + self.y_move
-        self.goto(new_x, new_y)
+        new_x = self.x_move + self.xcor()
+        new_y = self.y_move + self.ycor() 
+        self.goto(x=new_x, y=new_y)
+ 
+    def invert_x(self):
+        self.x_move *= -1    
 
-    def start_ball(self):
-        self.start = True
-
-    def starting_position(self, paddle_pos):
-        self.goto(paddle_pos.xcor(), (paddle_pos.ycor() + 22))
-
-    def horizontal_collision(self):
-        if self.xcor() > 385 or self.xcor() < -385:
-            return True
-
-    def vertical_collision(self):
-        if self.ycor() > 285:
-            return True
-        
-    def ball_hit_player_side(self):
-        if self.ycor() < -285:
-            return True
-
-    def bounce_horizontal(self):
-        self.x_move *= -1
-
-    def bounce_vertical(self):
+    def invert_y(self):
         self.y_move *= -1
 
-    def collision_with_paddle(self, paddle):
-        if self.distance(paddle) <= 90 and self.ycor() < -258:
-            return True
+    def bounce_paddle_53(self):
+        self.x_move = self.speed * 0.75
+        self.y_move = self.speed * 1.25
+
+    def bounce_paddle_45(self):
+        self.x_move = self.speed * 1
+        self.y_move = self.speed * 1
+        
+    def bounce_paddle_37(self):
+        self.x_move = self.speed * 1.25
+        self.y_move = self.speed * 0.75
+
+    def bounce_paddle_corner(self):
+        self.x_move = (self.speed + 1) * 1.75
+        self.y_move = (self.speed + 1) * 0.25
+
+    def bounce_paddle_up(self):
+        self.x_move = self.speed * 0.1
+        self.y_move = self.speed * 1.5
+
+    def ball_speed(self, tgt_color):
+        self.speed = self.default_speed * (self.speed_color[tgt_color])
+    
+    
 
 
