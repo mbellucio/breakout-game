@@ -62,7 +62,7 @@ class GameLogic:
 
 
     def wall_collision(self):
-        if self.ball.ball.left < 0 or self.ball.ball.right > self.view.settings.screen_size[0]:
+        if self.ball.ball.left <= 0 or self.ball.ball.right >= self.view.settings.screen_size[0]:
             self.ball.invert_x()
             self.mixer.play_sf(self.mixer.ball.sound)
         if self.ball.ball.top < 0:
